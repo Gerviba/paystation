@@ -1,0 +1,38 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/layout :: head" th:remove="body">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PayStsn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <link rel="icon" href="favicon.ico">
+
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/theme.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="login">
+    <div class="modal-content">
+        <form class="" th:action="@{/login}" method="post">
+            <div class="primary">Welcome!</div>
+            <span>Please enter your credentials to continue!</span>
+            <br>
+            <p th:if="${loginError}" class="text-error">Invalid credentials!</p>
+            <input name="username" id="username" placeholder="Username" type="text" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+            <input name="password" id="password" placeholder="Password" type="password" autocomplete="off" spellcheck="false" />
+
+            <div class="button-holder">
+                <input type="submit" class="btn" value="ENTER"/>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

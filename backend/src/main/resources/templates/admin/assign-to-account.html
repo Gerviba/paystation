@@ -1,0 +1,64 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/layout :: head" th:remove="body">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PayStsn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <link rel="icon" href="favicon.ico">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+    <div th:replace="admin/layout :: menu('accounts')"></div>
+
+    <div class="page">
+
+        <div class="header">
+            <span class="material-icons">compare_arrows</span> Assign card to user
+            <div class="sub-header" th:text="|CARD HASH: ${card}|">
+            </div>
+        </div>
+
+        <div class="center-button-holder">
+            <a class="btn btn-success" th:href="|@{/admin/create-account/}?card=${card}|">
+                <span>
+                    <i><span class="material-icons">person_add</span></i>
+                </span>
+                <span>Add user with this card</span>
+            </a>
+        </div>
+
+        <div class="container-box">
+            <div class="container-header">
+                <span class="material-icons">people</span>
+                USERS
+            </div>
+            <div class="container-content">
+                <table style="width: 100%" cellpadding="0" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Card</th>
+                        <th width="10%">Assign</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="acc : ${accounts}">
+                        <td th:text="${acc.getName()}">Kiss Pista</td>
+                        <td th:text="${acc.getCard()}">e908389f</td>
+                        <td style="text-align: center">
+                            <a th:href="|@{/admin/modify-account/}${acc.getId()}/?card=${card}|" class="mb-2 mr-2 btn btn-light" title="Assign"><span class="material-icons">compare_arrows</span></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

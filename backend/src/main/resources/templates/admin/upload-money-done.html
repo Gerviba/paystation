@@ -1,0 +1,42 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/layout :: head" th:remove="body">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PayStsn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <link rel="icon" href="favicon.ico">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+    <div th:replace="admin/layout :: menu('')"></div>
+
+    <div class="page">
+
+        <div class="header">
+            <span class="material-icons">publish</span> Deposit money
+        </div>
+
+        <div class="container-box">
+            <div class="container-header">
+                <span class="material-icons">publish</span>
+                MONEY DEPOSITED
+            </div>
+            <div class="container-content">
+                <div class="text-success">SUCCESSFULLY DEPOSITED</div>
+                <br>
+                <div><span class="text-secondary" th:text="|${money} JMF|">850 JMF</span> added to the balance of the selected user account</div>
+                <br>
+                <a class="btn btn-success" href="/admin/accounts">
+                    BACK TO USERS
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

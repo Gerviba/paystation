@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/layout :: head" th:remove="body">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PayStsn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <link rel="icon" href="favicon.ico">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+    <div th:replace="admin/layout :: menu('')"></div>
+
+    <div class="page">
+
+        <div class="header">
+            <span class="material-icons">publish</span> Deposit money
+            <div class="sub-header">
+                You can give money to a user here.<br>The replenishment is made of transaction so you can retrieve it afterwards.
+            </div>
+        </div>
+
+        <div class="container-box">
+            <div class="container-header">
+                USER
+            </div>
+            <div class="container-content">
+                <form class="" th:action="@{/admin/upload-money}" method="post">
+                    <input type="hidden" name="id" th:value="${id}" />
+                    <div><label for="name" class="">Name</label><input disabled name="name" id="name" placeholder="" type="text" class="form-control" autocomplete="off" spellcheck="false" th:value="${name}"></div>
+                    <div><label for="money" class="">Amount to deposit</label><input name="money" id="money" placeholder="" type="number" class="form-control" min="1" step="1" value="2000" autocomplete="off" spellcheck="false"></div>
+                    <br>
+                    <input type="submit" class="btn" value="DEPOSIT" />
+                    <a th:href="@{/admin/accounts}" class="btn btn-light">BACK</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

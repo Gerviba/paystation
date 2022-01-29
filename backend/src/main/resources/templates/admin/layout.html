@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<object th:remove="tag" th:fragment="head">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PayStsn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <meta name="msapplication-tap-highlight" content="no">
+    <link th:href="@{/material-icons.css}" rel="stylesheet">
+    <link th:href="@{/theme.css}" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+</head>
+</object>
+
+<object th:remove="tag" th:fragment="menu (active)">
+    <div class="menu">
+        <div class="logo">
+            pay<sub>STSN</sub>
+        </div>
+        <div class="menu-items">
+            <div>ADMINISTRATION</div>
+            <div><a th:class="${active == 'analytics' ? 'active' : ''}" th:href="@{/admin/}">Analitics</a></div>
+            <div><a th:class="${active == 'accounts' ? 'active' : ''}" th:href="@{/admin/accounts}">Users</a></div>
+            <div><a th:class="${active == 'transactions' ? 'active' : ''}" th:href="@{/admin/transactions}">Transactions</a></div>
+            <div><a th:class="${active == 'items' ? 'active' : ''}" th:href="@{/admin/items}">Named items</a></div>
+            <div><a th:class="${active == 'export' ? 'active' : ''}" th:href="@{/admin/export}">Export</a></div>
+            <div><a th:class="${active == 'gateways' ? 'active' : ''}" th:href="@{/admin/gateways}">Terminals</a></div>
+            <div style="margin-top: 20px">ACCOUNT</div>
+            <div><a th:href="@{/logout}">Log out</a></div>
+        </div>
+    </div>
+</object>
+
+</html>

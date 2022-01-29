@@ -1,0 +1,51 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/layout :: head" th:remove="body">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PayStsn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <link rel="icon" href="favicon.ico">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+    <div th:replace="admin/layout :: menu('')"></div>
+
+    <div class="page">
+
+        <div class="header" th:if="${acc == null || acc.name == null}">
+            <span class="material-icons">add_box</span> Create user
+        </div>
+        <div class="header" th:unless="${acc == null || acc.name == null}">
+            <span class="material-icons">create</span> Modify user
+        </div>
+
+        <div class="container-box">
+            <div class="container-header">
+                USER
+            </div>
+            <div class="container-content">
+                <form class="" th:action="|/admin/${createMode ? 'create' : 'modify' }-account|" method="post">
+                    <input th:unless="${acc == null || acc.name == null}" type="hidden" name="id" th:value="${acc?.getId()}" />
+                    <div class="position-relative form-group"><label for="name" class="">Name</label><input name="name" id="name" th:value="${acc?.getName()}" placeholder="" type="text" autocomplete="off" spellcheck="false"></div>
+                    <div class="position-relative form-group"><label for="email" class="">Email</label><input name="email" id="email" th:value="${acc?.getEmail()}" placeholder="" type="email" autocomplete="off" spellcheck="false"></div>
+                    <div class="position-relative form-group"><label for="phone" class="">Phone</label><input name="phone" id="phone" th:value="${acc?.getPhone()}" placeholder="+36301234567" type="text" autocomplete="off" spellcheck="false"></div>
+                    <div class="position-relative form-group"><label for="card" class="">Card</label><input name="card" id="card" th:value="${acc?.getCard()}" placeholder="64 long identifier" type="text" autocomplete="off" spellcheck="false"></div>
+                    <div class="text-danger mb-2" th:if="${error != null && error == T(hu.schbme.pay.station.controller.AdminController).DUPLICATE_CARD_ERROR}">Card is already in use</div>
+                    <div class="position-relative form-group"><label for="loan" class="">Max loan</label><input name="loan" id="loan" placeholder="" type="number" min="0" max="500000" step="1" value="0" autocomplete="off" spellcheck="false" th:value="${acc?.getMaxLoan() ?: 0}"></div>
+                    <div class="position-relative form-group"><label for="comment" class="">Comment</label><input name="comment" id="comment" th:value="${acc?.getComment()}" placeholder="" type="text" autocomplete="off" spellcheck="false"></div>
+                    <br>
+                    <input th:if="${createMode}" type="submit" class="btn" value="CREATE" />
+                    <input th:unless="${createMode}" type="submit" class="btn" value="UPDATE" />
+                    <a th:href="@{/admin/accounts}" class="btn btn-light">BACK</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

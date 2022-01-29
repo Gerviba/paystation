@@ -1,0 +1,53 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/layout :: head" th:remove="body">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PayStsn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <link rel="icon" href="favicon.ico">
+
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+    <link href="/custom-style.css" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+    <div th:replace="admin/layout :: menu('')"></div>
+
+    <div class="page">
+
+        <div class="header" th:if="${item == null}">
+            <span class="material-icons">add_box</span> Add named item
+        </div>
+        <div class="header" th:unless="${item == null}">
+            <span class="material-icons">create</span> Edit named item
+        </div>
+
+        <div class="container-box">
+            <div class="container-header">
+                NAMED ITEM
+            </div>
+            <div class="container-content">
+                <form class="" th:action="|/admin/${createMode ? 'create' : 'modify' }-item|" method="post">
+                    <input th:unless="${item == null}"  type="hidden" name="id" th:value="${item?.getId()}" />
+                    <div><label for="code" class="">Code</label><input name="code" id="code" th:value="${item?.getCode()}" placeholder="" type="text" autocomplete="off" spellcheck="false"></div>
+                    <div><label for="name" class="">Name</label><input name="name" id="name" th:value="${item?.getName()}" placeholder="" type="text" autocomplete="off" spellcheck="false"></div>
+                    <div><label for="quantity" class="">Amount</label><input name="quantity" id="quantity" th:value="${item?.getQuantity()}" placeholder="" type="text" autocomplete="off" spellcheck="false"></div>
+                    <div><label for="price" class="">Costs</label><input name="price" id="price" placeholder="" type="number" min="0" max="500000" step="1" value="0" autocomplete="off" spellcheck="false" th:value="${item?.getPrice() ?: 0}"></div>
+                    <div><label for="abbreviation" class="">Abbr.</label><input name="abbreviation" id="abbreviation" th:value="${item?.getAbbreviation()}" placeholder="" type="text" autocomplete="off" spellcheck="false"></div>
+                    <br>
+                    <input th:if="${createMode}" type="submit" class="btn" value="CREATE" />
+                    <input th:unless="${createMode}" type="submit" class="btn" value="UPDATE" />
+                    <a th:href="@{/admin/items}" class="btn btn-light">BACK</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

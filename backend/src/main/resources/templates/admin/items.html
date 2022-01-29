@@ -1,0 +1,76 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/layout :: head" th:remove="body">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PayStsn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <link rel="icon" href="favicon.ico">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+    <div th:replace="admin/layout :: menu('items')"></div>
+
+    <div class="page">
+
+        <div class="header">
+            <span class="material-icons">local_mall</span> Named items
+            <div class="sub-header">
+                Management of named and priced products
+            </div>
+        </div>
+
+        <div class="center-button-holder">
+            <a class="btn" th:href="@{/admin/create-item}">
+                <span>
+                    <i><span class="material-icons">add_shopping_cart</span></i>
+                </span>
+                <span>Create Named Item</span>
+            </a>
+        </div>
+
+        <div class="container-box">
+            <div class="container-header">
+                <span class="material-icons">local_mall</span>
+                NAMED ITEMS
+            </div>
+            <div class="container-content">
+                <div class="text-danger" style="margin-bottom: 20px" th:if="${invalid != ''}" th:text="|Multiple items found with the same id: ${invalid}|">Több termék rendelhető azonos (#201, #203) azonosítóval!</div>
+                <table style="width: 100%" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Costs</th>
+                        <th>Abbr.</th>
+                        <th>Purchasable</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${items}">
+                        <td th:text="|#${item.getCode()}|">#301</td>
+                        <td th:text="${item.getName()}">Napi menü</td>
+                        <td th:text="${item.getQuantity()}">5dl</td>
+                        <td th:text="|${item.getPrice()} JMF|">750 JMF</td>
+                        <td th:text="${item.getAbbreviation()}">Napi menu 50</td>
+                        <td th:text="${item.isActive() ? 'Yes' : 'No'}">Igen</td>
+                        <td style="text-align: right">
+                            <form th:unless="${item.isActive()}" method="post" th:action="@{/admin/items/activate}" style="display: inline"><input type="hidden" name="id" th:value="${item.getId()}"><button type="submit" class="btn btn-danger" title="Activate"><span class="material-icons">block</span></button></form>
+                            <form th:if="${item.isActive()}" method="post" th:action="@{/admin/items/deactivate}" style="display: inline"><input type="hidden" name="id" th:value="${item.getId()}"><button type="submit" class="btn btn-success" title="Deactivate"><span class="material-icons">check_circle_outline</span></button></form>
+                            <a th:href="|@{/admin/modify-item/}${item.getId()}|"  class="mb-2 mr-2 btn btn-info" title="Edit"><span class="material-icons">create</span></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

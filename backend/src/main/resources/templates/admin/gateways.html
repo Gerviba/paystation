@@ -1,0 +1,95 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/layout :: head" th:remove="body">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PayStsn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <link rel="icon" href="favicon.ico">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+    <div th:replace="admin/layout :: menu('gateways')"></div>
+
+    <div class="page">
+
+        <div class="header">
+            <span class="material-icons">memory</span> Terminals
+            <div class="sub-header">
+                You can create and maintain terminals here
+            </div>
+        </div>
+
+        <div class="center-button-holder">
+            <a class="btn" th:href="@{/admin/create-gateway}">
+                <span>
+                    <i><span class="material-icons">memory</span></i>
+                </span>
+                <span>Create Terminal</span>
+            </a>
+        </div>
+
+        <div class="flex-box gw-holder">
+
+            <div class="flex-entry container-box gw" th:each="gw : ${gateways}">
+                <div class="gateway-header">
+                    <div th:class="|dropdown-menu-header-inner ${gw.getType() == 'physical' ? 'bg-sunny-morning' : (gw.getType() == 'web' ? 'bg-dark' : 'bg-happy-fisher')}|">
+                        <div class="menu-header-content">
+                            <a href="#" th:if="${gw.getType() != 'web'}" th:href="|@{/admin/modify-gateway/}${gw?.getId()}|" class="gateway-edit-button"><span class="material-icons">edit</span></a>
+                            <div>
+                                <h4 class="menu-header-title" th:text="${gw.getName()}">DevTerminal</h4>
+                                <h6 class="menu-header-subtitle" th:if="${gw.getType() == 'physical'}">PHYSICAL TERMINAL</h6>
+                                <h6 class="menu-header-subtitle" th:if="${gw.getType() == 'web'}">VIRTUAL TERMINAL</h6>
+                                <h6 class="menu-header-subtitle" th:if="${gw.getType() == 'mobile'}">MOBILE TERMINAL</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-content" style="border-bottom: 1px solid #4e555b">
+                    <h5>INFORMATION</h5>
+
+                    Last packet:
+                    <span class="text-info" th:text="${gw.getLastPacketFormatted()}">12s</span>
+                    <small class="text-info">
+                        <span class="material-icons">history</span>
+                    </small>
+                    <br />
+
+                    Transaction count:
+                    <span class="text-success" th:text="${gw.getTxCount()}">364</span>
+                    <small class="text-success">
+                        <span class="material-icons">payment</span>
+                    </small>
+                    <br />
+
+                    Sum of transaction values:
+                    <span class="text-warning" th:text="${gw.getAllTrafficFormatted()}">431&nbsp;310</span>
+                    <small class="text-warning">
+                        <span class="material-icons">local_atm</span>
+                    </small>
+
+                </div>
+
+                <div class="container-content">
+                    <h5>LAST ID READS</h5>
+
+                    <div th:each="read : ${gw.getLastReadings()}">
+                        <span class="text-secondary" th:text="${read.getTimeFormatted()}">2020-11-04&nbsp;10:34:14</span><br />
+                        <a class="btn btn-light float-right" th:href="|@{/}admin/create-account/?card=${read.getCard()}|"><span class="material-icons">person_add_alt</span></a>
+                        <a class="btn btn-light float-right" th:href="|@{/}admin/assign-to-account/${read.getCard()}|"><span class="material-icons">compare_arrows</span></a>
+                        <div class="text-dark" th:text="${read.getCard()}">e908389d4bbf30e8dc72dc47cdf6b45d89e8b2a0</div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

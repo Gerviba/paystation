@@ -1,0 +1,111 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/layout :: head" th:remove="body">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PayStsn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <link rel="icon" href="favicon.ico">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+    <div th:replace="admin/layout :: menu('analytics')"></div>
+
+    <div class="page">
+
+        <div class="header">
+            <span class="material-icons">insert_chart</span> Analytics
+            <div class="sub-header">
+                Here you can see the current statistics and the audit log
+            </div>
+        </div>
+
+        <div class="container-box">
+            <div class="container-header">
+                <span class="material-icons">radio_button_checked</span>
+                LIVE
+            </div>
+            <div class="container-content">
+                <div class="flex-box">
+                    <div class="flex-entry center">
+                        <span class="material-icons big-icons">how_to_reg</span>
+                        <h4>USERS</h4>
+                        <div class="widget-numbers" th:text="${userCount}">35</div>
+                    </div>
+                    <div class="flex-entry center">
+                        <span class="material-icons big-icons">payment</span>
+                        <h4>TRANSACTIONS</h4>
+                        <div class="widget-numbers" th:text="${txCount}">35</div>
+                    </div>
+                    <div class="flex-entry center">
+                        <span class="material-icons big-icons">local_atm</span>
+                        <h4>TOTAL INCOME</h4>
+                        <div class="widget-numbers" th:text="|${sumOfIncome} JMF|">35</div>
+                    </div>
+                </div>
+
+                <div class="center-button-holder">
+                    <a class="btn" th:href="@{/admin/create-account}">
+                        <span><i class="icon"><span class="material-icons">person_add</span></i></span>
+                        <span>Add User</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-box">
+            <div class="container-header">
+                <span class="material-icons header-icon icon-gradient bg-happy-green">show_chart</span>
+                STATISTICS
+            </div>
+            <div class="container-content">
+                <div class="flex-box">
+                    <div class="flex-entry center">
+                        <span class="material-icons big-icons">local_atm</span>
+                        <div class="widget-numbers" th:text="|${sumOfIncome} JMF|">24&nbsp;500</div>
+                        total income
+                    </div>
+                    <div class="flex-entry center">
+                        <span class="material-icons big-icons">local_atm</span>
+                        <div class="widget-numbers" th:text="|${sumOfLoans} JMF|">24&nbsp;500</div>
+                        loaned amount
+                    </div>
+                    <div class="flex-entry center">
+                        <span class="material-icons big-icons">local_atm</span>
+                        <div class="widget-numbers" th:text="|${sumOfBalances} JMF|">24&nbsp;500</div>
+                        sum of balances
+                    </div>
+                    <div class="flex-entry center">
+                        <span class="material-icons big-icons">local_atm</span>
+                        <div class="widget-numbers" th:text="|${sumOfPayIns} JMF|">24&nbsp;500</div>
+                        sum of deposit
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-box">
+            <div class="container-header">
+                <span class="material-icons header-icon icon-gradient bg-happy-green">receipt_long</span>
+                AUDIT LOG
+            </div>
+
+            <div class="container-content">
+                <div th:each="log : ${logs}" th:class="|vertical-timeline-item dot-${log.getColor()}|">
+                    <div>
+                        <span class="vertical-timeline-element-icon"><span class="material-icons">schedule</span></span>
+                        <span class="vertical-timeline-date" th:utext="${log.getFormattedDate()}">2020-11-04&nbsp;10:34:14</span>
+                        <h5 th:utext="${log.getFormattedMessage()}">Üzenet</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

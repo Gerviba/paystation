@@ -1,0 +1,55 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/layout :: head" th:remove="body">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>PayStsn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <link rel="icon" href="favicon.ico">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+    <div th:replace="admin/layout :: menu('')"></div>
+
+    <div class="page">
+
+        <div class="header" th:if="${gateway == null}">
+            <span class="material-icons">add_box</span> Create terminal
+        </div>
+        <div class="header" th:unless="${gateway == null}">
+            <span class="material-icons">create</span> Modify terminal
+        </div>
+
+        <div class="container-box">
+            <div class="container-header">
+                TERMINAL
+            </div>
+            <div class="container-content">
+                <form class="" th:action="|/admin/${createMode ? 'create' : 'modify' }-gateway|" method="post">
+                    <input th:unless="${gateway == null}"  type="hidden" name="id" th:value="${gateway?.getId()}" />
+                    <div><label for="name" class="">Név</label><input name="name" id="name" th:value="${gateway?.getName()}" placeholder="" type="text" autocomplete="off" spellcheck="false"></div>
+                    <div class="text-danger" th:if="${error != null && error}">This name is already in use</div>
+                    <div><label for="token" class="">Token</label><input name="token" id="token" th:value="${gateway?.getToken()}" placeholder="" type="text" autocomplete="off" spellcheck="false"></div>
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <select id="type" name="type">
+                            <option th:selected="${gateway?.getType() == 'physical'}" value="physical">Physical</option>
+                            <option th:selected="${gateway?.getType() == 'mobile'}" value="mobile">Mobile</option>
+                            <option th:if="${gateway?.getType() == 'web'}" th:selected="${gateway?.getType() == 'web'}" value="web">Virtual</option>
+                        </select>
+                    </div>
+                    <br>
+                    <input th:if="${createMode}" type="submit" class="btn btn" value="CREATE" />
+                    <input th:unless="${createMode}" type="submit" class="btn btn" value="UPDATE" />
+                    <a th:href="@{/admin/gateways}" class="btn btn-light">BACK</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
